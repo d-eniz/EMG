@@ -1,0 +1,43 @@
+int output = 0;
+int tick = 0;
+
+int analogInput0 = 0;
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+ analogInput0 = analogRead(A0)*(5000/1023);
+
+  if (analogInput0>4000) {
+    tick = tick + 1;
+  } else {
+    tick = 0;
+  }
+  
+delay(1);
+
+  if (tick == 1) {
+    output = 2500;
+  }
+  else if (tick > 25) {
+    tick = 0;
+  }
+  else {
+    output = 0;
+  }
+delay(1);
+  
+  Serial.print("0:"); Serial.print(analogInput0); Serial.print(" ");
+  Serial.print("1:"); Serial.print(analogRead(A1)*(5000/1023)); Serial.print(" ");
+  Serial.print("2:"); Serial.print(analogRead(A2)*(5000/1023)); Serial.print(" ");
+  Serial.print("3:"); Serial.print(analogRead(A3)*(5000/1023)); Serial.print(" ");
+  Serial.print("4:"); Serial.print(analogRead(A4)*(5000/1023)); Serial.print(" ");
+  Serial.print("Tick:"); Serial.print(tick); Serial.print(" ");
+  Serial.print("Output:"); Serial.print(output); Serial.println(" ");
+  
+  
+}
