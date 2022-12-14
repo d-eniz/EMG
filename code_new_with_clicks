@@ -1,0 +1,45 @@
+int tick = 0;
+int output = 0;
+
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(9600);
+Mouse.begin();
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+if(((analogRead(A0)>900))&&(tick == 1)){ // CLICK
+  tick = tick + 1;
+  output = 2500;
+}
+else { // ONLY USED FOR TESTING, WILL REMOVE LATER
+  output = 0;
+}
+if(analogRead(A1)>500){ // MOVE RIGHT
+  Mouse.move(40,0);
+}
+if(analogRead(A2)>500){ // MOVE LEFT
+  Mouse.move(-40,0);
+}
+if(analogRead(A3)>500){ // MOVE UP
+  Mouse.move(0,40);
+}
+if(analogRead(A4)>500){ // MOVE DOWN
+  Mouse.move(0,-40);
+}
+if (tick != 1){ // PREVENTS CLICKING REPEATEDLY
+  tick = tick + 1;
+}
+if (tick>1000){
+  tick = 0;
+}
+
+Serial.print("0:"); Serial.print(analogRead(A0)); Serial.print(" ");
+Serial.print("1:"); Serial.print(analogRead(A0)); Serial.print(" ");
+Serial.print("2:"); Serial.print(analogRead(A0)); Serial.print(" ");
+Serial.print("3:"); Serial.print(analogRead(A0)); Serial.print(" ");
+Serial.print("4:"); Serial.print(analogRead(A0)); Serial.print(" ");
+Serial.print("Tick:"); Serial.print(tick*10); Serial.print(" "); // ONLY USED FOR TESTING, WILL REMOVE LATER
+Serial.print("Output:"); Serial.print(output); Serial.println(" "); // ONLY USED FOR TESTING, WILL REMOVE LATER
+}
